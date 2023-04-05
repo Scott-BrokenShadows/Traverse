@@ -10,15 +10,9 @@ public class SurveyToolState : MonoBehaviour
     [SerializeField] GameObject tripod;
     [SerializeField] GameObject prism;
     [SerializeField] GameObject totalStn;
-    //set height from 1.15 to 1.45 - to top of tripod, not including prism height
-    [SerializeField] float height1;
-    [SerializeField] float height2;
-    [SerializeField] float height3;
-
-    [SerializeField] int tripodSelect;
-
-
-
+    [Header("Random 1.15 - 1.45")]
+    [SerializeField] float height;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -56,26 +50,16 @@ public class SurveyToolState : MonoBehaviour
 
     void Tripod()
     {
-        if (tripod.active != true)
+        if (tripod.active == false)
         {
-            tripodSelect = Random.Range(1, 4);
+            height = Random.Range(1.15f, 1.45f);
 
-            switch (tripodSelect)
-            {
-                case 1:
-                    tripod.transform.position = new Vector3(tripod.transform.position.x, height1, tripod.transform.position.z);
-                    break;
-                case 2:
-                    tripod.transform.position = new Vector3(tripod.transform.position.x, height2, tripod.transform.position.z);
-                    break;
-                case 3:
-                    tripod.transform.position = new Vector3(tripod.transform.position.x, height3, tripod.transform.position.z);
-                    break;
+            tripod.transform.position = new Vector3(tripod.transform.position.x, height, tripod.transform.position.z);
 
-            }
+            tripod.SetActive(true);
         }
 
-        tripod.SetActive(true);
+        
 
         if (prism.active == true)
         {
