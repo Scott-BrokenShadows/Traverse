@@ -4304,6 +4304,7 @@ MonoBehaviour:
   character: {fileID: 4416926081555846553}
   closestSurvey: {fileID: 0}
   closestTripod: {fileID: 0}
+  closestTribrach: {fileID: 0}
   closestPrism: {fileID: 0}
   closestTS: {fileID: 0}
   closestDist: Infinity

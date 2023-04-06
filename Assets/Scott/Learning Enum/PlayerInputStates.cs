@@ -14,6 +14,7 @@ public class PlayerInputStates : MonoBehaviour
     [SerializeField] GameObject character;
     [SerializeField] GameObject closestSurvey;
     [SerializeField] GameObject closestTripod;
+    [SerializeField] GameObject closestTribrach;
     [SerializeField] GameObject closestPrism;
     [SerializeField] GameObject closestTS;
     private GameObject[] surveyPoints;
@@ -55,13 +56,15 @@ public class PlayerInputStates : MonoBehaviour
             {
                 closestSurvey = surveyPoint;
                 tribrachCam = closestSurvey.GetComponentInChildren<CinemachineVirtualCamera>();
-                closestTripod = closestSurvey.transform.Find("_Tripod").gameObject;
-                closestPrism = closestSurvey.transform.Find("_Prism").gameObject;
-                closestTS = closestSurvey.transform.Find("_TotalStation").gameObject;
+                
             }
         }
 
         closestDist = Vector3.Distance(character.transform.position, closestSurvey.transform.position);
+        closestTripod = closestSurvey.transform.Find("_Tripod").gameObject;
+        closestTribrach = closestSurvey.transform.Find("_Tribrach").gameObject;
+        closestPrism = closestTribrach.transform.Find("_Prism").gameObject;
+        closestTS = closestTribrach.transform.Find("_TotalStation").gameObject;
     }
 
     void CharacterInputs()
