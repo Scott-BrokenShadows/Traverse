@@ -13,6 +13,7 @@ public class SurveyToolState : MonoBehaviour
     [SerializeField] public GameObject prism;
     [SerializeField] public GameObject totalStn;
     [SerializeField] public CinemachineVirtualCamera tribrachCam;
+    [SerializeField] public CinemachineVirtualCamera tribrachPosCam;
     [Header("Random 1.15 - 1.45")]
     [SerializeField] float height;
     [SerializeField] EquipMang equipment;
@@ -62,8 +63,12 @@ public class SurveyToolState : MonoBehaviour
 
             tripod.transform.position = new Vector3(tripod.transform.position.x, height, tripod.transform.position.z);
 
-            float _randomY = Random.Range(-0.5f, 0.5f);
-            float _randomZ = Random.Range(-0.5f, 0.5f);
+            float _randDistY = Random.Range(-0.002f, 0.002f);
+            float _randDistZ = Random.Range(-0.002f, 0.002f);
+            tribrach.transform.localPosition = new Vector3(0, _randDistY, _randDistZ);
+
+            float _randomY = Random.Range(-1f, 1f);
+            float _randomZ = Random.Range(-1f, 1f);
             Quaternion _randomYZ = Quaternion.Euler(0f, _randomY, _randomZ);
             tribrach.transform.localRotation = _randomYZ;
 
