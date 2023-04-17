@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using TMPro;
+using UnityEditor;
 
 public class PlayerInputStates : MonoBehaviour
 {
@@ -14,10 +15,13 @@ public class PlayerInputStates : MonoBehaviour
     [SerializeField] GameObject character;
     [SerializeField] SkinnedMeshRenderer characterSkin;
     [SerializeField] GameObject closestSurvey;
+    [SerializeField] GameObject _tribrach;
     [SerializeField] EquipMang equipment;
     private GameObject[] surveyPoints;
     [SerializeField] float closestDist = Mathf.Infinity;
     [SerializeField] float interactDist = 2f;
+    [SerializeField] float maxPosAngle = 1f;
+    [SerializeField] float maxNegAngle = -1f;
 
     public TextMeshProUGUI textTripod;
     public TextMeshProUGUI textTribrach;
@@ -26,6 +30,11 @@ public class PlayerInputStates : MonoBehaviour
     public TextMeshProUGUI textPrism;
     public TextMeshProUGUI textTotalStn;
 
+    [SerializeField] private float _zEuler;
+    [SerializeField] private float _yEuler;
+    [SerializeField] private float _zAngle;
+    [SerializeField] private float _yAngle;
+    //Vector3 rInspect;
 
     // Start is called before the first frame update
     void Start()
@@ -72,12 +81,14 @@ public class PlayerInputStates : MonoBehaviour
             {
                 closestSurvey = surveyPoint;
                 tribrachCam = closestSurvey.GetComponent<SurveyToolState>().tribrachCam;
+                _tribrach = closestSurvey.GetComponent<SurveyToolState>().tribrach;
 
             }
         }
 
         closestDist = Vector3.Distance(character.transform.position, closestSurvey.transform.position);
-        
+
+        //GetRotationInspector();
     }
 
     void CharacterInputs()
@@ -203,6 +214,11 @@ public class PlayerInputStates : MonoBehaviour
         }
     }
 
+    //void GetRotationInspector()
+    //{
+    //    rInspect = TransformUtils.GetInspectorRotation(_tribrach.transform);
+    //}
+
     void TribrachInputs()
     {
         textTripod.enabled = false;
@@ -230,5 +246,72 @@ public class PlayerInputStates : MonoBehaviour
             playState = PlayerState.Character;
         }
 
+        _zEuler = _tribrach.transform.localEulerAngles.z;
+        _yEuler = _tribrach.transform.localEulerAngles.y;
+
+        if (_tribrach.transform.localEulerAngles.z >= 180)
+        {
+            _zAngle = (_tribrach.transform.localEulerAngles.z - 360);
+            
+        }
+        else
+        {
+            _zAngle = _tribrach.transform.localEulerAngles.z;
+        }
+
+        if (_tribrach.transform.localEulerAngles.y >= 180)
+        {
+            _yAngle = (_tribrach.transform.localEulerAngles.y - 360);
+
+        }
+        else
+        {
+            _yAngle = _tribrach.transform.localEulerAngles.y;
+        }
+
+
+        if (_zAngle <= maxPosAngle && Input.GetKey(KeyCode.W))
+        {
+            Debug.Log("W key");
+            _tribrach.transform.localEulerAngles += new Vector3(0f, 0f, 0.003f) * Time.deltaTime;
+            //Call to buble to update position
+
+            //_tribrach.transform.localEulerAngles = new Vector3(_tribrach.transform.localEulerAngles.x, _tribrach.transform.localEulerAngles.y, Mathf.Clamp(_tribrach.transform.localEulerAngles.z, maxNegAngle, maxPosAngle));
+        }
+
+        if (_zAngle >= maxNegAngle && Input.GetKey(KeyCode.E))
+        {
+            Debug.Log("E key");
+            _tribrach.transform.localEulerAngles += new Vector3(0f, 0f, -0.003f) * Time.deltaTime;
+            //_tribrach.transform.localEulerAngles = new Vector3(_tribrach.transform.localEulerAngles.x, _tribrach.transform.localEulerAngles.y, Mathf.Clamp(_tribrach.transform.localEulerAngles.z, maxNegAngle, maxPosAngle));
+        }
+
+        if (_zAngle <= maxPosAngle && _yAngle <= maxPosAngle && Input.GetKey(KeyCode.A))
+        {
+            Debug.Log("A key");
+            _tribrach.transform.localEulerAngles += new Vector3(0f, 0.001f, 0.002f) * Time.deltaTime;
+            //_tribrach.transform.localEulerAngles = new Vector3(_tribrach.transform.localEulerAngles.x, Mathf.Clamp(_tribrach.transform.localEulerAngles.y, maxNegAngle, maxPosAngle), Mathf.Clamp(_tribrach.transform.localEulerAngles.z, maxNegAngle, maxPosAngle));
+        }
+
+        if (_zAngle >= maxNegAngle && _yAngle >= maxNegAngle && Input.GetKey(KeyCode.Z))
+        {
+            Debug.Log("Z key");
+            _tribrach.transform.localEulerAngles += new Vector3(0f, -0.001f, -0.002f) * Time.deltaTime;
+            //_tribrach.transform.localEulerAngles = new Vector3(_tribrach.transform.localEulerAngles.x, Mathf.Clamp(_tribrach.transform.localEulerAngles.y, maxNegAngle, maxPosAngle), Mathf.Clamp(_tribrach.transform.localEulerAngles.z, maxNegAngle, maxPosAngle));
+        }
+
+        if (_zAngle <= maxPosAngle && _yAngle >= maxNegAngle && Input.GetKey(KeyCode.C))
+        {
+            Debug.Log("C key");
+            _tribrach.transform.localEulerAngles += new Vector3(0f, -0.001f, 0.002f) * Time.deltaTime;
+            //_tribrach.transform.localEulerAngles = new Vector3(_tribrach.transform.localEulerAngles.x, Mathf.Clamp(_tribrach.transform.localEulerAngles.y, maxNegAngle, maxPosAngle), Mathf.Clamp(_tribrach.transform.localEulerAngles.z, maxNegAngle, maxPosAngle));
+        }
+
+        if (_zAngle >= maxNegAngle && _yAngle <= maxPosAngle && Input.GetKey(KeyCode.F))
+        {
+            Debug.Log("F key");
+            _tribrach.transform.localEulerAngles += new Vector3(0f, 0.001f, -0.002f) * Time.deltaTime;
+            //_tribrach.transform.localEulerAngles = new Vector3(_tribrach.transform.localEulerAngles.x, Mathf.Clamp(_tribrach.transform.localEulerAngles.y, maxNegAngle, maxPosAngle), Mathf.Clamp(_tribrach.transform.localEulerAngles.z, maxNegAngle, maxPosAngle));
+        }
     }
 }
