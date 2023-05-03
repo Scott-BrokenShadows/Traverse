@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 public class SSTT : MonoBehaviour
 {
+    public SurveyState surveyState;
+    public PlayerState playState;
+
     [SerializeField] private Transform vertBase = null;
     [SerializeField] private Transform horiBase = null;
 
@@ -50,15 +53,18 @@ public class SSTT : MonoBehaviour
 
     void Update()
     {
-        traverse = Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
-        horiBase.transform.Rotate(0, traverse, 0);
-        newBearing = currentBearing + traverse;
-        SetCurrentBearing(newBearing);
+        if (playState == PlayerState.TotalStationPosition)
+        {
+            traverse = Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
+            horiBase.transform.Rotate(0, traverse, 0);
+            newBearing = currentBearing + traverse;
+            SetCurrentBearing(newBearing);
 
-        elevate = -Input.GetAxis("Vertical") * rotationSpeed * Time.deltaTime;
-        vertBase.transform.Rotate(elevate, 0, 0);
-        newElevation = currentElevation + elevate;
-        SetCurrentElevation(newElevation);
+            elevate = -Input.GetAxis("Vertical") * rotationSpeed * Time.deltaTime;
+            vertBase.transform.Rotate(elevate, 0, 0);
+            newElevation = currentElevation + elevate;
+            SetCurrentElevation(newElevation);
+        }
 
         GetDegree();
         GetDistance();
