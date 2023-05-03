@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class SSTT : MonoBehaviour
 {
-    public SurveyState surveyState;
-    public PlayerState playState;
+    //public SurveyState surveyState;
+    //public PlayerState playState;
 
     [SerializeField] private Transform vertBase = null;
     [SerializeField] private Transform horiBase = null;
@@ -53,18 +53,9 @@ public class SSTT : MonoBehaviour
 
     void Update()
     {
-        if (playState == PlayerState.TotalStationPosition)
-        {
-            traverse = Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
-            horiBase.transform.Rotate(0, traverse, 0);
-            newBearing = currentBearing + traverse;
-            SetCurrentBearing(newBearing);
-
-            elevate = -Input.GetAxis("Vertical") * rotationSpeed * Time.deltaTime;
-            vertBase.transform.Rotate(elevate, 0, 0);
-            newElevation = currentElevation + elevate;
-            SetCurrentElevation(newElevation);
-        }
+        
+            
+        
 
         GetDegree();
         GetDistance();
@@ -82,18 +73,7 @@ public class SSTT : MonoBehaviour
         trgHText.text = "TARGET HT : " + trgHeight;
     }
 
-    void SetCurrentBearing(float rot)
-    {
-        //currentBearing = Mathf.Clamp(rot, 0, 360);
-        currentBearing = rot;
-        horiBase.transform.rotation = Quaternion.Euler(0, rot, 0);
-    }
-
-    void SetCurrentElevation(float rot)
-    {
-        currentElevation = Mathf.Clamp(rot, minMaxVertBase.x, minMaxVertBase.y);
-        vertBase.transform.rotation = Quaternion.Euler(rot, currentBearing, 0);
-    }
+    
 
     void GetDegree()
     {
@@ -106,7 +86,7 @@ public class SSTT : MonoBehaviour
         //hDegreeText.text = $"Horizontal Degrees = {hDegree.ToString()}°";
     }
 
-    void GetDistance()
+    public void GetDistance()
     {
         RaycastHit hit;
 
