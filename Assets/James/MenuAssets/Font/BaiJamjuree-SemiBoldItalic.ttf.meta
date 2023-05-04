@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 850ee57386577fd4c9b39ecb2d962d13
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Bai Jamjuree SemiBold
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 44cad5fb4fcf5ce4797522ddd4944f12, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -112,7 +112,7 @@ public class PlayerInputStates : MonoBehaviour
             {
                 closestSurvey = surveyPoint;
                 horiBase = closestSurvey.GetComponent<SurveyToolState>().totalStn.transform;
-                vertBase = closestSurvey.GetComponent<SurveyToolState>().totalStn.transform;
+                vertBase = closestSurvey.GetComponent<SurveyToolState>().totalStn.gameObject.transform.GetChild(1).transform;
                 _tribrach = closestSurvey.GetComponent<SurveyToolState>().tribrach;
                 _totalStn = closestSurvey.GetComponent<SurveyToolState>().totalStn;
                 tribrachCam = closestSurvey.GetComponent<SurveyToolState>().tribrachCam;
@@ -495,12 +495,12 @@ public class PlayerInputStates : MonoBehaviour
         }
 
         float traverse = Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
-        horiBase.transform.Rotate(0, traverse, 0);
+        //horiBase.transform.Rotate(0, traverse, 0);
         float newBearing = currentBearing + traverse;
         SetCurrentBearing(newBearing);
 
         float elevate = -Input.GetAxis("Vertical") * rotationSpeed * Time.deltaTime;
-        vertBase.transform.Rotate(elevate, 0, 0);
+        //vertBase.transform.Rotate(elevate, 0, 0);
         float newElevation = currentElevation + elevate;
         SetCurrentElevation(newElevation);
 
@@ -514,13 +514,16 @@ public class PlayerInputStates : MonoBehaviour
     {
         //currentBearing = Mathf.Clamp(rot, 0, 360);
         currentBearing = rot;
-        horiBase.transform.rotation = Quaternion.Euler(0, rot, 0);
+        // Rotate Horizontal
+        //horiBase.transform.rotation = Quaternion.Euler(0, rot, 0);
+        horiBase.transform.localRotation = Quaternion.Euler(rot, 0, 0);
     }
 
     void SetCurrentElevation(float rot)
     {
+        // Rotate Vertical
         currentElevation = Mathf.Clamp(rot, minMaxVertBase.x, minMaxVertBase.y);
-        vertBase.transform.rotation = Quaternion.Euler(rot, currentBearing, 0);
+        vertBase.transform.localRotation = Quaternion.Euler(rot, -90, 0);
     }
 
 }

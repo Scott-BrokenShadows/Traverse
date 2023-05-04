@@ -3,18 +3,12 @@ using UnityEngine.UI;
 
 public class SSTT : MonoBehaviour
 {
-    //public SurveyState surveyState;
-    //public PlayerState playState;
-
     [SerializeField] private Transform vertBase = null;
     [SerializeField] private Transform horiBase = null;
 
     [SerializeField] private Transform vertRayDist;
     [SerializeField] private Transform vertRayHgt;
 
-    //[SerializeField] private Text vDegreeText = null;
-    //[SerializeField] private Text vDMSText = null;
-    //[SerializeField] private Text hDegreeText = null;
     [SerializeField] private Text hDMSText = null;
     [SerializeField] private Text distText = null;
     [SerializeField] private Text hgtDiffText = null;
@@ -37,26 +31,10 @@ public class SSTT : MonoBehaviour
     [SerializeField] LayerMask _layerPrism;
     [SerializeField] LayerMask _layerGround;
 
-    [SerializeField] Vector2 minMaxVertBase;
-
-    [SerializeField] private float rotationSpeed = 5.0f;
-
     Prism _prism;
-
-    private float traverse;
-    private float currentBearing;
-    private float newBearing;
-
-    private float elevate;
-    private float currentElevation;
-    private float newElevation;
 
     void Update()
     {
-        
-            
-        
-
         GetDegree();
         GetDistance();
         GetHeight();
@@ -73,8 +51,6 @@ public class SSTT : MonoBehaviour
         trgHText.text = "TARGET HT : " + trgHeight;
     }
 
-    
-
     void GetDegree()
     {
         var _vDegree = vertBase.transform.localRotation.eulerAngles;
@@ -82,7 +58,7 @@ public class SSTT : MonoBehaviour
         //vDegreeText.text = $"Vertical Degrees = {vDegree.ToString()}°";
 
         var _hDegree = horiBase.transform.localRotation.eulerAngles;
-        hDegree = (float)System.Math.Round(_hDegree.y, 3); // round up
+        hDegree = (float)System.Math.Round(_hDegree.x, 3); // round up
         //hDegreeText.text = $"Horizontal Degrees = {hDegree.ToString()}°";
     }
 
