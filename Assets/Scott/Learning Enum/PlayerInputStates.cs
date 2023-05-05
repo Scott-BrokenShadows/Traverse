@@ -167,7 +167,6 @@ public class PlayerInputStates : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 Debug.Log("activated");
-                //change camera here
                 playState = PlayerState.TribrachLevel;
             }
 
@@ -494,7 +493,7 @@ public class PlayerInputStates : MonoBehaviour
             totalFaceCam.VirtualCameraGameObject.SetActive(false);
         }
 
-        float traverse = Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
+        float traverse = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
         //horiBase.transform.Rotate(0, traverse, 0);
         float newBearing = currentBearing + traverse;
         SetCurrentBearing(newBearing);

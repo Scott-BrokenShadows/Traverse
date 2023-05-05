@@ -42,7 +42,7 @@ public class SSTT : MonoBehaviour
         vDMS = DegreesMinutesSeconds(vDegree);
         //vDMSText.text = "V BEARING : " + vDMS;
 
-        hDMS = DegreesMinutesSeconds(hDegree);
+        hDMS = DegreesMinutesSeconds(360 - hDegree);
         hDMSText.text = "BEARING : " + hDMS;
 
         distText.text = "DISTANCE : " + distance;
