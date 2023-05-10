@@ -4539,6 +4539,38 @@ Transform:
   m_Father: {fileID: 878304588}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1635150477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1635150478}
+  m_Layer: 0
+  m_Name: CameraHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1635150478
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635150477}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0756, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1736753689}
+  m_Father: {fileID: 9077861037334875228}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1662394142
 GameObject:
   m_ObjectHideFlags: 0
@@ -4871,13 +4903,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736753688}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -0.0756, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 522924277}
   - {fileID: 578057424}
-  m_Father: {fileID: 9077861037334875228}
+  m_Father: {fileID: 1635150478}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 90, y: -90, z: 0}
 --- !u!114 &1736753690
@@ -8189,6 +8221,7 @@ MonoBehaviour:
   tribrach: {fileID: 7145595529818540713}
   prism: {fileID: 4060251499710813317}
   totalStn: {fileID: 4648199614149857424}
+  cameraHolder: {fileID: 1635150477}
   tribrachCam: {fileID: 505930891}
   tribrachPosCam: {fileID: 658700295}
   TSFaceCam: {fileID: 2143296366}
@@ -8402,7 +8435,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2143296365}
-  - {fileID: 1736753689}
+  - {fileID: 1635150478}
   - {fileID: 5079110190032649022}
   - {fileID: 1070977721}
   m_Father: {fileID: 7552104899641941573}

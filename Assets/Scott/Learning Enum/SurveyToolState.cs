@@ -12,6 +12,7 @@ public class SurveyToolState : MonoBehaviour
     [SerializeField] public GameObject tribrach;
     [SerializeField] public GameObject prism;
     [SerializeField] public GameObject totalStn;
+    [SerializeField] public GameObject cameraHolder;
     [SerializeField] public CinemachineVirtualCamera tribrachCam;
     [SerializeField] public CinemachineVirtualCamera tribrachPosCam;
     [SerializeField] public CinemachineVirtualCamera TSFaceCam;

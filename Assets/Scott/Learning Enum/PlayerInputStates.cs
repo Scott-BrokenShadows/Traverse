@@ -15,6 +15,8 @@ public class PlayerInputStates : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera totalFaceCam;
     [SerializeField] CinemachineVirtualCamera totalAimCam;
 
+    private List<CinemachineVirtualCamera> virtualCameras = new List<CinemachineVirtualCamera>();
+
     [SerializeField] GameObject character;
     [SerializeField] SkinnedMeshRenderer characterSkin;
     [SerializeField] GameObject closestSurvey;
@@ -64,6 +66,8 @@ public class PlayerInputStates : MonoBehaviour
             if (distanceToPlayer < closestDist)
             {
                 closestSurvey = surveyPoint;
+                horiBase = closestSurvey.GetComponent<SurveyToolState>().totalStn.transform;
+                vertBase = closestSurvey.GetComponent<SurveyToolState>().cameraHolder.transform;
                 tribrachCanvas = closestSurvey.GetComponent<SurveyToolState>().tribrachCanvas;
                 tribrachPosCanvas = closestSurvey.GetComponent<SurveyToolState>().tribrachPosCanvas;
                 totalAimCanvas = closestSurvey.GetComponent<SurveyToolState>().totalAimCanvas;
@@ -73,6 +77,8 @@ public class PlayerInputStates : MonoBehaviour
                 tribrachPosCam = closestSurvey.GetComponent<SurveyToolState>().tribrachPosCam;
                 totalAimCam = closestSurvey.GetComponent<SurveyToolState>().TSAimCam;
                 totalFaceCam = closestSurvey.GetComponent<SurveyToolState>().TSFaceCam;
+                UpdateVirtualCameras();
+
             }
         }
 
@@ -112,13 +118,17 @@ public class PlayerInputStates : MonoBehaviour
             {
                 closestSurvey = surveyPoint;
                 horiBase = closestSurvey.GetComponent<SurveyToolState>().totalStn.transform;
-                vertBase = closestSurvey.GetComponent<SurveyToolState>().totalStn.gameObject.transform.GetChild(1).transform;
+                vertBase = closestSurvey.GetComponent<SurveyToolState>().cameraHolder.transform;
+                tribrachCanvas = closestSurvey.GetComponent<SurveyToolState>().tribrachCanvas;
+                tribrachPosCanvas = closestSurvey.GetComponent<SurveyToolState>().tribrachPosCanvas;
+                totalAimCanvas = closestSurvey.GetComponent<SurveyToolState>().totalAimCanvas;
                 _tribrach = closestSurvey.GetComponent<SurveyToolState>().tribrach;
                 _totalStn = closestSurvey.GetComponent<SurveyToolState>().totalStn;
                 tribrachCam = closestSurvey.GetComponent<SurveyToolState>().tribrachCam;
                 tribrachPosCam = closestSurvey.GetComponent<SurveyToolState>().tribrachPosCam;
                 totalAimCam = closestSurvey.GetComponent<SurveyToolState>().TSAimCam;
                 totalFaceCam = closestSurvey.GetComponent<SurveyToolState>().TSFaceCam;
+                UpdateVirtualCameras();
 
             }
         }
@@ -126,6 +136,28 @@ public class PlayerInputStates : MonoBehaviour
         closestDist = Vector3.Distance(character.transform.position, closestSurvey.transform.position);
 
         //GetRotationInspector();
+    }
+
+    private void UpdateVirtualCameras()
+    {
+        virtualCameras.Clear(); // Clear the existing array
+
+        // Add the updated virtual cameras to the array
+        virtualCameras.Add(characterCam);
+        virtualCameras.Add(tribrachCam);
+        virtualCameras.Add(tribrachPosCam);
+        virtualCameras.Add(totalFaceCam);
+        virtualCameras.Add(totalAimCam);
+    }
+
+    private void SetAllCamerasToPriorityZero()
+    {
+        // Iterate through the array and set priority to 0
+        foreach (CinemachineVirtualCamera camera in virtualCameras)
+        {
+            camera.Priority = 0;
+            camera.VirtualCameraGameObject.SetActive(false);
+        }
     }
 
     void CharacterInputs()
@@ -245,16 +277,9 @@ public class PlayerInputStates : MonoBehaviour
 
         if (characterCam.Priority < 10)
         {
+            SetAllCamerasToPriorityZero();
             characterCam.Priority = 10;
-            tribrachCam.Priority = 0;
-            tribrachPosCam.Priority = 0;
-            totalFaceCam.Priority = 0;
-            totalAimCam.Priority = 0;
-            tribrachPosCam.VirtualCameraGameObject.SetActive(false);
-            tribrachCam.VirtualCameraGameObject.SetActive(false);
             characterCam.VirtualCameraGameObject.SetActive(true);
-            totalAimCam.VirtualCameraGameObject.SetActive(false);
-            totalFaceCam.VirtualCameraGameObject.SetActive(false);
         }
     }
 
@@ -278,16 +303,9 @@ public class PlayerInputStates : MonoBehaviour
 
         if (tribrachCam.Priority < 10)
         {
-            characterCam.Priority = 0;
+            SetAllCamerasToPriorityZero();
             tribrachCam.Priority = 10;
-            tribrachPosCam.Priority = 0;
-            totalFaceCam.Priority = 0;
-            totalAimCam.Priority = 0;
-            tribrachPosCam.VirtualCameraGameObject.SetActive(false);
             tribrachCam.VirtualCameraGameObject.SetActive(true);
-            characterCam.VirtualCameraGameObject.SetActive(false);
-            totalAimCam.VirtualCameraGameObject.SetActive(false);
-            totalFaceCam.VirtualCameraGameObject.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -370,16 +388,9 @@ public class PlayerInputStates : MonoBehaviour
 
         if (tribrachPosCam.Priority < 10)
         {
-            characterCam.Priority = 0;
-            tribrachCam.Priority = 0;
+            SetAllCamerasToPriorityZero();
             tribrachPosCam.Priority = 10;
-            totalFaceCam.Priority = 0;
-            totalAimCam.Priority = 0;
             tribrachPosCam.VirtualCameraGameObject.SetActive(true);
-            tribrachCam.VirtualCameraGameObject.SetActive(false);
-            characterCam.VirtualCameraGameObject.SetActive(false);
-            totalAimCam.VirtualCameraGameObject.SetActive(false);
-            totalFaceCam.VirtualCameraGameObject.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -433,15 +444,8 @@ public class PlayerInputStates : MonoBehaviour
 
         if (totalFaceCam.Priority < 10)
         {
-            characterCam.Priority = 0;
-            tribrachCam.Priority = 0;
-            tribrachPosCam.Priority = 0;
+            SetAllCamerasToPriorityZero();
             totalFaceCam.Priority = 10;
-            totalAimCam.Priority = 0;
-            tribrachPosCam.VirtualCameraGameObject.SetActive(false);
-            tribrachCam.VirtualCameraGameObject.SetActive(false);
-            characterCam.VirtualCameraGameObject.SetActive(false);
-            totalAimCam.VirtualCameraGameObject.SetActive(false);
             totalFaceCam.VirtualCameraGameObject.SetActive(true);
         }
 
@@ -481,16 +485,9 @@ public class PlayerInputStates : MonoBehaviour
 
         if (totalAimCam.Priority < 10)
         {
-            characterCam.Priority = 0;
-            tribrachCam.Priority = 0;
-            tribrachPosCam.Priority = 0;
-            totalFaceCam.Priority = 0;
+            SetAllCamerasToPriorityZero();
             totalAimCam.Priority = 10;
-            tribrachPosCam.VirtualCameraGameObject.SetActive(false);
-            tribrachCam.VirtualCameraGameObject.SetActive(false);
-            characterCam.VirtualCameraGameObject.SetActive(false);
             totalAimCam.VirtualCameraGameObject.SetActive(true);
-            totalFaceCam.VirtualCameraGameObject.SetActive(false);
         }
 
         float traverse = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
@@ -521,8 +518,9 @@ public class PlayerInputStates : MonoBehaviour
     void SetCurrentElevation(float rot)
     {
         // Rotate Vertical
-        currentElevation = Mathf.Clamp(rot, minMaxVertBase.x, minMaxVertBase.y);
-        vertBase.transform.localRotation = Quaternion.Euler(rot, -90, 0);
+        //currentElevation = Mathf.Clamp(rot, minMaxVertBase.x, minMaxVertBase.y);
+        currentElevation = rot;
+        vertBase.transform.localRotation = Quaternion.Euler(0, 0, rot);
     }
 
 }
