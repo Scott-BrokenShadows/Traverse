@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 public class SSTT : MonoBehaviour
 {
+    public SurveyState surveyState;
+    public SurveyToolState surveyToolState;
+
     [SerializeField] private Transform vertBase = null;
     [SerializeField] private Transform horiBase = null;
 
@@ -15,13 +18,13 @@ public class SSTT : MonoBehaviour
     [SerializeField] private Text stnHText = null;
     [SerializeField] private Text trgHText = null;
 
-    float vDegree;
+    [SerializeField] float vDegree;
     string vDMS = "00°00’00”";
-    float hDegree;
+    [SerializeField] float hDegree;
     string hDMS = "00°00’00”";
 
-    float distance;
-    float rayDistance;
+    [SerializeField] float distance;
+    [SerializeField] float rayDistance;
 
     float heightDiff;
     float rayHeight; // This Station Height
@@ -35,8 +38,21 @@ public class SSTT : MonoBehaviour
 
     void Update()
     {
+        switch (surveyState)
+        {
+            case SurveyState.TotalStn:
+                setup();
+                break;
+        }
+
+        surveyState = surveyToolState.surveyState;
+    }
+
+    void setup()
+    {
         GetDegree();
-        GetDistance();
+        //Debug.Log("get degree done");
+        //GetDistance();
         GetHeight();
 
         vDMS = DegreesMinutesSeconds(vDegree);
@@ -49,12 +65,13 @@ public class SSTT : MonoBehaviour
         hgtDiffText.text = "HT DIFF : " + heightDiff;
         stnHText.text = "STN HT : " + rayHeight;
         trgHText.text = "TARGET HT : " + trgHeight;
+        //Debug.Log("update done");
     }
 
     void GetDegree()
     {
         var _vDegree = vertBase.transform.localRotation.eulerAngles;
-        vDegree = (float)System.Math.Round(_vDegree.x, 3); // round up
+        vDegree = (float)System.Math.Round((360 - _vDegree.z), 3); // round up
         //vDegreeText.text = $"Vertical Degrees = {vDegree.ToString()}°";
 
         var _hDegree = horiBase.transform.localRotation.eulerAngles;
@@ -64,30 +81,36 @@ public class SSTT : MonoBehaviour
 
     public void GetDistance()
     {
+        Debug.Log("Send ray");
         RaycastHit hit;
 
         if (Physics.Raycast(vertRayDist.transform.position, vertRayDist.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, _layerPrism))
         {
+            //Debug.Log("Ray hit prism");
             Debug.DrawRay(vertRayDist.transform.position, vertRayDist.transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             //Debug.Log("Did Hit " + $"<{hit.transform.name}>");
-
+            //Debug.Log("Ray hit draw");
             rayDistance = (float)System.Math.Round(hit.distance, 3);
-
+            //Debug.Log("Ray hit distance");
             if (hit.transform.gameObject.GetComponent<Prism>() != null)
             {
+                //Debug.Log("Ray hit prism what?");
                 _prism = hit.transform.gameObject.GetComponent<Prism>();
             }
 
             distance = (float)System.Math.Round(Mathf.Cos(vDegree * Mathf.Deg2Rad) * rayDistance, 3);
-
+            //Debug.Log("Ray hit distance calc");
             if (_prism != null) 
-            { 
+            {
+                //Debug.Log("Ray hit prism 2");
                 trgHeight = _prism.rayHeight; 
                 heightDiff = (float)System.Math.Round(-((Mathf.Sin(vDegree * Mathf.Deg2Rad) * rayDistance) + rayHeight - _prism.rayHeight), 3);
+                //Debug.Log("Ray distance calc");
             }
         }
         else
         {
+            //Debug.Log("Ray miss");
             Debug.DrawRay(vertRayDist.transform.position, vertRayDist.transform.TransformDirection(Vector3.forward) * 1000, Color.white);
             //Debug.Log("Did not Hit");
 

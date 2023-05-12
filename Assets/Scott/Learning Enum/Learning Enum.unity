@@ -4562,7 +4562,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1635150477}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.0756, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4570,7 +4570,7 @@ Transform:
   - {fileID: 1736753689}
   m_Father: {fileID: 9077861037334875228}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1662394142
 GameObject:
   m_ObjectHideFlags: 0
@@ -8243,7 +8243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57af7e13242ea6b47ba4fa81147d4bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertBase: {fileID: 1736753689}
+  surveyState: 0
+  surveyToolState: {fileID: 8316525046339528357}
+  vertBase: {fileID: 1635150478}
   horiBase: {fileID: 9077861037334875228}
   vertRayDist: {fileID: 1736753689}
   vertRayHgt: {fileID: 1070977721}
@@ -8252,6 +8254,10 @@ MonoBehaviour:
   hgtDiffText: {fileID: 2675361612625613490}
   stnHText: {fileID: 4895143978572348838}
   trgHText: {fileID: 7299977072677236189}
+  vDegree: 0
+  hDegree: 0
+  distance: 0
+  rayDistance: 0
   _layerPrism:
     serializedVersion: 2
     m_Bits: 64
