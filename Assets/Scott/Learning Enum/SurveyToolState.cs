@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SurveyToolState : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class SurveyToolState : MonoBehaviour
     [SerializeField] public CinemachineVirtualCamera tribrachPosCam;
     [SerializeField] public CinemachineVirtualCamera TSFaceCam;
     [SerializeField] public CinemachineVirtualCamera TSAimCam;
+    [SerializeField] public TMP_InputField inputField;
 
     [Header("Random 1.15 - 1.45")]
     [SerializeField] float height;

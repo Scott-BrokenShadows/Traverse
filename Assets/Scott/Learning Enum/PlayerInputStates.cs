@@ -77,6 +77,7 @@ public class PlayerInputStates : MonoBehaviour
                 tribrachPosCam = closestSurvey.GetComponent<SurveyToolState>().tribrachPosCam;
                 totalAimCam = closestSurvey.GetComponent<SurveyToolState>().TSAimCam;
                 totalFaceCam = closestSurvey.GetComponent<SurveyToolState>().TSFaceCam;
+                inputField = closestSurvey.GetComponent<SurveyToolState>().inputField;
                 UpdateVirtualCameras();
 
             }
@@ -125,6 +126,7 @@ public class PlayerInputStates : MonoBehaviour
                 tribrachPosCam = closestSurvey.GetComponent<SurveyToolState>().tribrachPosCam;
                 totalAimCam = closestSurvey.GetComponent<SurveyToolState>().TSAimCam;
                 totalFaceCam = closestSurvey.GetComponent<SurveyToolState>().TSFaceCam;
+                inputField = closestSurvey.GetComponent<SurveyToolState>().inputField;
                 UpdateVirtualCameras();
 
             }
