@@ -17,10 +17,6 @@ public class SurveyToolState : MonoBehaviour
     [SerializeField] public CinemachineVirtualCamera tribrachPosCam;
     [SerializeField] public CinemachineVirtualCamera TSFaceCam;
     [SerializeField] public CinemachineVirtualCamera TSAimCam;
-    [SerializeField] public Canvas tribrachCanvas;
-    [SerializeField] public Canvas tribrachPosCanvas;
-    //[SerializeField] public Canvas totalFaceCanvas;
-    [SerializeField] public Canvas totalAimCanvas;
 
     [Header("Random 1.15 - 1.45")]
     [SerializeField] float height;

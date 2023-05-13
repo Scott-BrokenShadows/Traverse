@@ -38,11 +38,7 @@ public class PlayerInputStates : MonoBehaviour
     public TextMeshProUGUI textTribrachTS;
     public TextMeshProUGUI textPrism;
     public TextMeshProUGUI textTotalStn;
-    public Canvas tribrachCanvas;
-    public Canvas tribrachPosCanvas;
-    //public Canvas totalFaceCanvas;
-    public Canvas totalAimCanvas;
-
+   
     [SerializeField] private float _zEuler;
     [SerializeField] private float _yEuler;
     [SerializeField] private float _zAngle;
@@ -68,9 +64,6 @@ public class PlayerInputStates : MonoBehaviour
                 closestSurvey = surveyPoint;
                 horiBase = closestSurvey.GetComponent<SurveyToolState>().totalStn.transform;
                 vertBase = closestSurvey.GetComponent<SurveyToolState>().cameraHolder.transform;
-                tribrachCanvas = closestSurvey.GetComponent<SurveyToolState>().tribrachCanvas;
-                tribrachPosCanvas = closestSurvey.GetComponent<SurveyToolState>().tribrachPosCanvas;
-                totalAimCanvas = closestSurvey.GetComponent<SurveyToolState>().totalAimCanvas;
                 _tribrach = closestSurvey.GetComponent<SurveyToolState>().tribrach;
                 _totalStn = closestSurvey.GetComponent<SurveyToolState>().totalStn;
                 tribrachCam = closestSurvey.GetComponent<SurveyToolState>().tribrachCam;
@@ -119,9 +112,6 @@ public class PlayerInputStates : MonoBehaviour
                 closestSurvey = surveyPoint;
                 horiBase = closestSurvey.GetComponent<SurveyToolState>().totalStn.transform;
                 vertBase = closestSurvey.GetComponent<SurveyToolState>().cameraHolder.transform;
-                tribrachCanvas = closestSurvey.GetComponent<SurveyToolState>().tribrachCanvas;
-                tribrachPosCanvas = closestSurvey.GetComponent<SurveyToolState>().tribrachPosCanvas;
-                totalAimCanvas = closestSurvey.GetComponent<SurveyToolState>().totalAimCanvas;
                 _tribrach = closestSurvey.GetComponent<SurveyToolState>().tribrach;
                 _totalStn = closestSurvey.GetComponent<SurveyToolState>().totalStn;
                 tribrachCam = closestSurvey.GetComponent<SurveyToolState>().tribrachCam;
@@ -167,9 +157,6 @@ public class PlayerInputStates : MonoBehaviour
             characterSkin.enabled = true;
         }
 
-        tribrachCanvas.enabled = false;
-        tribrachPosCanvas.enabled = false;
-        totalAimCanvas.enabled = false;
 
         if (closestDist < interactDist && closestSurvey.GetComponent<SurveyToolState>().surveyState == SurveyState.GP && equipment.tripods < 3)
         {
@@ -292,9 +279,6 @@ public class PlayerInputStates : MonoBehaviour
         textTribrachP.enabled = false;
         textTribrachTS.enabled = false;
 
-        tribrachCanvas.enabled = true;
-        tribrachPosCanvas.enabled = false;
-        totalAimCanvas.enabled = false;
 
         if (characterSkin.enabled == true)
         {
@@ -382,9 +366,6 @@ public class PlayerInputStates : MonoBehaviour
         textTribrachP.enabled = false;
         textTribrachTS.enabled = false;
 
-        tribrachCanvas.enabled = false;
-        tribrachPosCanvas.enabled = true;
-        totalAimCanvas.enabled = false;
 
         if (tribrachPosCam.Priority < 10)
         {
@@ -438,9 +419,6 @@ public class PlayerInputStates : MonoBehaviour
         textTribrachP.enabled = false;
         textTribrachTS.enabled = false;
 
-        tribrachCanvas.enabled = false;
-        tribrachPosCanvas.enabled = false;
-        totalAimCanvas.enabled = false;
 
         if (totalFaceCam.Priority < 10)
         {
@@ -479,9 +457,6 @@ public class PlayerInputStates : MonoBehaviour
         textTribrachP.enabled = false;
         textTribrachTS.enabled = false;
 
-        tribrachCanvas.enabled = false;
-        tribrachPosCanvas.enabled = false;
-        totalAimCanvas.enabled = true;
 
         if (totalAimCam.Priority < 10)
         {
@@ -512,7 +487,7 @@ public class PlayerInputStates : MonoBehaviour
         currentBearing = rot;
         // Rotate Horizontal
         //horiBase.transform.rotation = Quaternion.Euler(0, rot, 0);
-        horiBase.transform.localRotation = Quaternion.Euler(rot, 0, 0);
+        horiBase.transform.localRotation = Quaternion.Euler(rot, horiBase.transform.localRotation.y, horiBase.transform.localRotation.z);
     }
 
     void SetCurrentElevation(float rot)
@@ -520,7 +495,7 @@ public class PlayerInputStates : MonoBehaviour
         // Rotate Vertical
         //currentElevation = Mathf.Clamp(rot, minMaxVertBase.x, minMaxVertBase.y);
         currentElevation = rot;
-        vertBase.transform.localRotation = Quaternion.Euler(0, 0, rot);
+        vertBase.transform.localRotation = Quaternion.Euler(vertBase.transform.localRotation.x, vertBase.transform.localRotation.y, rot);
     }
 
 }

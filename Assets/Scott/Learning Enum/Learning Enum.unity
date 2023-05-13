@@ -1144,6 +1144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 505930890}
   - component: {fileID: 505930891}
+  - component: {fileID: 505930892}
   m_Layer: 0
   m_Name: TribrachCam
   m_TagString: Untagged
@@ -1208,6 +1209,23 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 2095207312}
+--- !u!114 &505930892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505930889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14f1421451f06bc4597fddbd5aa2d8ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasIsOn: 0
+  parentCam: {fileID: 505930891}
+  canvases:
+  - {fileID: 586740880}
+  - {fileID: 233768800}
 --- !u!1 &507018216
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,6 +1874,7 @@ GameObject:
   m_Component:
   - component: {fileID: 658700294}
   - component: {fileID: 658700295}
+  - component: {fileID: 658700296}
   m_Layer: 0
   m_Name: TribrachPosCam
   m_TagString: Untagged
@@ -1919,6 +1938,22 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1054376704}
+--- !u!114 &658700296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658700293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14f1421451f06bc4597fddbd5aa2d8ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasIsOn: 0
+  parentCam: {fileID: 658700295}
+  canvases:
+  - {fileID: 2113877693}
 --- !u!1 &683711436
 GameObject:
   m_ObjectHideFlags: 0
@@ -4888,6 +4923,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1736753689}
   - component: {fileID: 1736753690}
+  - component: {fileID: 1736753691}
   m_Layer: 0
   m_Name: TSAimCam
   m_TagString: Untagged
@@ -4951,6 +4987,22 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 522924277}
+--- !u!114 &1736753691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736753688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14f1421451f06bc4597fddbd5aa2d8ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasIsOn: 0
+  parentCam: {fileID: 1736753690}
+  canvases:
+  - {fileID: 578057427}
 --- !u!1 &1744723719
 GameObject:
   m_ObjectHideFlags: 0
@@ -8518,9 +8570,6 @@ MonoBehaviour:
   textTribrachTS: {fileID: 228800014}
   textPrism: {fileID: 1764630618}
   textTotalStn: {fileID: 1217363503}
-  tribrachCanvas: {fileID: 0}
-  tribrachPosCanvas: {fileID: 0}
-  totalAimCanvas: {fileID: 0}
   _zEuler: 0
   _yEuler: 0
   _zAngle: 0
