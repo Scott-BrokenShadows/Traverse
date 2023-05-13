@@ -5,6 +5,7 @@ using Cinemachine;
 using TMPro;
 using UnityEditor;
 
+
 public class PlayerInputStates : MonoBehaviour
 {
     public PlayerState playState;
@@ -44,10 +45,16 @@ public class PlayerInputStates : MonoBehaviour
     [SerializeField] private float _zAngle;
     [SerializeField] private float _yAngle;
 
+    [SerializeField] private TMP_InputField inputField;
+
     [SerializeField] private Transform vertBase = null;
     [SerializeField] private Transform horiBase = null;
     [SerializeField] Vector2 minMaxVertBase;
     [SerializeField] private float rotationSpeed = 5.0f;
+
+    [SerializeField] private bool adjustStn = false;
+    [SerializeField] private bool adjustTarget = false;
+    //[SerializeField] private bool adjustBearing;
 
     // Start is called before the first frame update
     void Start()
@@ -441,6 +448,57 @@ public class PlayerInputStates : MonoBehaviour
         {
             closestSurvey.GetComponent<SSTT>().GetDistance();
         }
+
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    AdjustVariable(ref _totalStn.GetComponent<SSTT>(). bearing);
+        //}
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+
+            inputField.enabled = true;
+            adjustStn = true;
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            inputField.enabled = true;
+            adjustTarget = true;
+            
+        }
+
+        if (inputField.enabled == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                float parsedFloat;
+                if (float.TryParse(inputField.text, out parsedFloat))
+                {
+                    if (adjustStn == true)
+                    {
+                        AdjustVariable(ref _totalStn.GetComponent<SSTT>().stnHeight, parsedFloat);
+                    }
+                    if (adjustTarget == true)
+                    {
+                        AdjustVariable(ref _totalStn.GetComponent<SSTT>().trgHeight, parsedFloat);
+                    }
+                }
+                else
+                {
+                    inputField.text = "Invalid Input";
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                inputField.text = "";
+                inputField.enabled = false;
+                adjustStn = false;
+                adjustTarget = false;
+            }
+        }
     }
 
     void TotalStnAim()
@@ -497,5 +555,13 @@ public class PlayerInputStates : MonoBehaviour
         currentElevation = rot;
         vertBase.transform.localRotation = Quaternion.Euler(vertBase.transform.localRotation.x, vertBase.transform.localRotation.y, rot);
     }
+
+    void AdjustVariable (ref float variable, float value)
+    {
+        variable = value;
+
+    }
+
+   
 
 }

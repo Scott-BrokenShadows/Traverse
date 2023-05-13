@@ -10,7 +10,7 @@ public class SSTT : MonoBehaviour
     [SerializeField] private Transform horiBase = null;
 
     [SerializeField] private Transform vertRayDist;
-    [SerializeField] private Transform vertRayHgt;
+    //[SerializeField] private Transform vertRayHgt;
 
     [SerializeField] private Text hDMSText = null;
     [SerializeField] private Text distText = null;
@@ -27,9 +27,9 @@ public class SSTT : MonoBehaviour
     [SerializeField] float rayDistance;
 
     float heightDiff;
-    float rayHeight; // This Station Height
+    [SerializeField] public float stnHeight; // This Station Height
 
-    float trgHeight;
+    [SerializeField] public float trgHeight;
 
     [SerializeField] LayerMask _layerPrism;
     [SerializeField] LayerMask _layerGround;
@@ -53,7 +53,7 @@ public class SSTT : MonoBehaviour
         GetDegree();
         //Debug.Log("get degree done");
         //GetDistance();
-        GetHeight();
+        //GetHeight();
 
         vDMS = DegreesMinutesSeconds(vDegree);
         //vDMSText.text = "V BEARING : " + vDMS;
@@ -63,7 +63,7 @@ public class SSTT : MonoBehaviour
 
         distText.text = "DISTANCE : " + distance;
         hgtDiffText.text = "HT DIFF : " + heightDiff;
-        stnHText.text = "STN HT : " + rayHeight;
+        stnHText.text = "STN HT : " + stnHeight;
         trgHText.text = "TARGET HT : " + trgHeight;
         //Debug.Log("update done");
     }
@@ -104,7 +104,7 @@ public class SSTT : MonoBehaviour
             {
                 //Debug.Log("Ray hit prism 2");
                 trgHeight = _prism.rayHeight; 
-                heightDiff = (float)System.Math.Round(-((Mathf.Sin(vDegree * Mathf.Deg2Rad) * rayDistance) + rayHeight - _prism.rayHeight), 3);
+                heightDiff = (float)System.Math.Round(-((Mathf.Sin(vDegree * Mathf.Deg2Rad) * rayDistance) + stnHeight - _prism.rayHeight), 3);
                 //Debug.Log("Ray distance calc");
             }
         }
@@ -125,25 +125,25 @@ public class SSTT : MonoBehaviour
         }
     }
 
-    void GetHeight()
-    {
-        RaycastHit hit;
+    //void GetHeight()
+    //{
+    //    RaycastHit hit;
 
-        if (Physics.Raycast(vertRayHgt.transform.position, vertRayHgt.transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, _layerGround))
-        {
-            Debug.DrawRay(vertRayHgt.transform.position, vertRayHgt.transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
-            //Debug.Log("Did Hit " + $"<{hit.transform.name}>");
+    //    if (Physics.Raycast(vertRayHgt.transform.position, vertRayHgt.transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, _layerGround))
+    //    {
+    //        Debug.DrawRay(vertRayHgt.transform.position, vertRayHgt.transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
+    //        //Debug.Log("Did Hit " + $"<{hit.transform.name}>");
 
-            rayHeight = (float)System.Math.Round(hit.distance, 3);
-        }
-        else
-        {
-            Debug.DrawRay(vertRayHgt.transform.position, vertRayHgt.transform.TransformDirection(Vector3.down) * 1000, Color.white);
-            //Debug.Log("Did not Hit");
+    //        rayHeight = (float)System.Math.Round(hit.distance, 3);
+    //    }
+    //    else
+    //    {
+    //        Debug.DrawRay(vertRayHgt.transform.position, vertRayHgt.transform.TransformDirection(Vector3.down) * 1000, Color.white);
+    //        //Debug.Log("Did not Hit");
 
-            rayHeight = 0;
-        }
-    }
+    //        rayHeight = 0;
+    //    }
+    //}
 
     string DegreesMinutesSeconds(float dDegree)
     {
